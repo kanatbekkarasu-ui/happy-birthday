@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="ru" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Письмо Маме</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        .heart-animation {
+            animation: heartbeat 2s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .letter-paper {
+            background: linear-gradient(to bottom, transparent 0%, transparent 95%, #e5e7eb 95%, #e5e7eb 100%);
+            background-size: 100% 24px;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full font-serif">
+  <div class="min-h-full" style="background: linear-gradient(135deg, lightyellow 0%, wheat 50%, orange 100%);"><!-- Header -->
+   <header class="text-center py-12 px-4">
+    <div class="heart-animation inline-block text-6xl mb-4">
+     💝
+    </div>
+    <h1 id="main-title" class="text-5xl font-bold mb-4" style="color: darkred;">Письмо маме</h1>
+    <p id="subtitle" class="text-xl" style="color: brown;">Самые важные слова</p>
+   </header><!-- Inspirational Text Section -->
+   <section class="max-w-4xl mx-auto px-4 mb-12">
+    <div class="text-center p-8 rounded-2xl shadow-lg" style="background-color: ivory; border: 2px solid orange;">
+     <div class="text-4xl mb-6">
+      💕
+     </div>
+     <h2 id="inspiration-title" class="text-3xl font-bold mb-6" style="color: darkred;">Мама - это самый дорогой человек</h2>
+     <div class="text-lg leading-relaxed space-y-4" style="color: brown;">
+      <p>Каждое слово, написанное маме, становится частичкой нашей души. В этих строках живет наша любовь, благодарность и все те чувства, которые порой так сложно выразить вслух.</p>
+      <div class="bg-white bg-opacity-50 p-6 rounded-lg border-l-4 border-pink-400 my-6">
+       <p class="font-medium text-pink-800 mb-4">💕 Искренние слова от сердца:</p>
+       <div class="text-base leading-relaxed space-y-3 text-pink-900">
+        <p>😔 Мама, я не люблю, когда ты меня ругаешь. Я всё готова сделать... но я очень не люблю посуду мыть.</p>
+        <p>😢 Когда я заступаюсь за вас или защищаю, вы меня за это ругаете. Мне всегда обидно... но я это всё глотаю в себе... чтобы не делать больно вам и не показываю слёзы.</p>
+        <p>😞 Когда я стараюсь больше чем сестра, она говорит только о себе, а про меня забывает. Это разве честно? 🤷‍♀️</p>
+        <p>💔 Мне не нравится, когда я очень старалась, а вы этого не замечаете...</p>
+       </div>
+      </div>
+      <p>Мама дала нам жизнь, подарила безусловную любовь и всегда верила в нас. Пришло время сказать ей "спасибо" и поделиться тем, что у нас на сердце.</p>
+      <p class="font-semibold italic">"Материнская любовь - это топливо, которое позволяет обычному человеку делать невозможное." 💖</p>
+     </div>
+    </div>
+   </section><!-- Main Content -->
+   <main class="max-w-4xl mx-auto px-4 pb-12"><!-- Letter Form -->
+    <div class="mb-12">
+     <div class="max-w-2xl mx-auto p-8 rounded-2xl shadow-2xl letter-paper" style="background-color: ivory; border: 2px solid orange;">
+      <h2 id="form-title" class="text-3xl font-bold text-center mb-8" style="color: darkred;">От кого для кого</h2>
+      <form id="letter-form" class="space-y-6">
+       <div><label for="author-input" class="block text-lg font-semibold mb-2" style="color: brown;">От кого:</label> <input type="text" id="author-input" name="author" required class="w-full px-4 py-3 rounded-lg border-2 text-lg focus:outline-none focus:ring-2" style="border-color: orange; background-color: lightyellow; color: darkred;" placeholder="Введите ваше имя">
+       </div>
+       <div><label for="message-input" class="block text-lg font-semibold mb-2" style="color: brown;">Для кого:</label> <textarea id="message-input" name="message" required rows="8" class="w-full px-4 py-3 rounded-lg border-2 text-lg focus:outline-none focus:ring-2 resize-none" style="border-color: orange; background-color: lightyellow; color: darkred;" placeholder="Дорогая мама, хочу сказать тебе..."></textarea>
+       </div>
+       <div class="text-center"><button type="submit" id="submit-btn" class="px-8 py-4 text-xl font-bold rounded-full shadow-lg transform transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-4" style="background-color: crimson; color: white;"> <span id="button-text">Отправить письмо</span> <span id="loading-spinner" class="hidden ml-2">⏳</span> </button>
+       </div>
+      </form>
+     </div>
+    </div><!-- Success Message -->
+    <div id="success-message" class="hidden max-w-2xl mx-auto p-6 rounded-xl text-center fade-in" style="background-color: lightgreen; border: 2px solid green;">
+     <div class="text-4xl mb-4">
+      💌
+     </div>
+     <h3 class="text-2xl font-bold mb-2" style="color: darkgreen;">Письмо сохранено!</h3>
+     <p class="text-lg" style="color: darkgreen;">Ваше письмо было сохранено в Canva Sheet. Мама будет счастлива прочитать ваши слова!</p>
+    </div><!-- Letters Display -->
+    <div id="letters-section" class="mt-12">
+     <h2 class="text-3xl font-bold text-center mb-8" style="color: darkred;">Сохраненные письма</h2>
+     <div id="letters-container" class="space-y-6"><!-- Letters will be displayed here -->
+     </div>
+     <div id="no-letters" class="text-center py-8">
+      <div class="text-6xl mb-4">
+       📝
+      </div>
+      <p class="text-xl" style="color: brown;">Пока нет сохраненных писем. Напишите первое письмо маме!</p>
+     </div>
+    </div>
+   </main>
+  </div>
+  <script>
+        // Configuration
+        const defaultConfig = {
+            main_title: "Письмо маме",
+            subtitle: "Самые важные слова",
+            inspiration_title: "Мама - это самый дорогой человек",
+            form_title: "От кого для кого",
+            button_text: "Отправить письмо",
+            background_color: "lightyellow",
+            surface_color: "ivory",
+            text_color: "darkred",
+            primary_action_color: "crimson",
+            secondary_action_color: "orange",
+            font_family: "serif",
+            font_size: 16
+        };
+
+        let currentLetters = [];
+        let isLoading = false;
+
+        // Data SDK Handler
+        const dataHandler = {
+            onDataChanged(data) {
+                currentLetters = data;
+                renderLetters();
+            }
+        };
+
+        // Initialize Data SDK
+        async function initializeApp() {
+            if (window.dataSdk) {
+                const result = await window.dataSdk.init(dataHandler);
+                if (!result.isOk) {
+                    console.error("Failed to initialize data SDK");
+                }
+            }
+        }
+
+        // Form submission
+        document.getElementById('letter-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (isLoading || currentLetters.length >= 999) {
+                if (currentLetters.length >= 999) {
+                    showMessage("Достигнут лимит в 999 писем. Пожалуйста, удалите некоторые письма.", "error");
+                }
+                return;
+            }
+
+            const author = document.getElementById('author-input').value.trim();
+            const message = document.getElementById('message-input').value.trim();
+
+            if (!author || !message) return;
+
+            setLoadingState(true);
+
+            const letterData = {
+                id: Date.now().toString(),
+                author: author,
+                message: message,
+                created_at: new Date().toISOString()
+            };
+
+            if (window.dataSdk) {
+                const result = await window.dataSdk.create(letterData);
+                if (result.isOk) {
+                    document.getElementById('letter-form').reset();
+                    showSuccessMessage();
+                } else {
+                    showMessage("Ошибка при сохранении письма. Попробуйте еще раз.", "error");
+                }
+            }
+
+            setLoadingState(false);
+        });
+
+        function setLoadingState(loading) {
+            isLoading = loading;
+            const submitBtn = document.getElementById('submit-btn');
+            const spinner = document.getElementById('loading-spinner');
+            const buttonText = document.getElementById('button-text');
+
+            if (loading) {
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+                spinner.classList.remove('hidden');
+                buttonText.textContent = 'Сохранение...';
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                spinner.classList.add('hidden');
+                buttonText.textContent = defaultConfig.button_text;
+            }
+        }
+
+        function showSuccessMessage() {
+            const successMsg = document.getElementById('success-message');
+            successMsg.classList.remove('hidden');
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+            }, 5000);
+        }
+
+        function showMessage(text, type) {
+            // Create inline message instead of alert
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 fade-in`;
+            messageDiv.style.backgroundColor = type === 'error' ? 'lightcoral' : 'lightgreen';
+            messageDiv.style.color = type === 'error' ? 'darkred' : 'darkgreen';
+            messageDiv.style.border = type === 'error' ? '2px solid red' : '2px solid green';
+            messageDiv.textContent = text;
+            
+            document.body.appendChild(messageDiv);
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 5000);
+        }
+
+        function renderLetters() {
+            const container = document.getElementById('letters-container');
+            const noLetters = document.getElementById('no-letters');
+
+            if (currentLetters.length === 0) {
+                container.innerHTML = '';
+                noLetters.classList.remove('hidden');
+                return;
+            }
+
+            noLetters.classList.add('hidden');
+
+            // Sort letters by creation date (newest first)
+            const sortedLetters = [...currentLetters].sort((a, b) => 
+                new Date(b.created_at) - new Date(a.created_at)
+            );
+
+            container.innerHTML = sortedLetters.map(letter => `
+                <div class="p-6 rounded-xl shadow-lg letter-paper fade-in" style="background-color: ivory; border: 2px solid orange;">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold" style="color: darkred;">От: ${escapeHtml(letter.author)}</h3>
+                        <span class="text-sm" style="color: brown;">${formatDate(letter.created_at)}</span>
+                    </div>
+                    <div class="text-lg leading-relaxed whitespace-pre-wrap" style="color: darkred;">
+                        ${escapeHtml(letter.message)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Element SDK Implementation
+        async function onConfigChange(config) {
+            const baseSize = config.font_size || defaultConfig.font_size;
+            const customFont = config.font_family || defaultConfig.font_family;
+            const baseFontStack = 'Georgia, serif';
+
+            // Update text content
+            document.getElementById('main-title').textContent = config.main_title || defaultConfig.main_title;
+            document.getElementById('subtitle').textContent = config.subtitle || defaultConfig.subtitle;
+            document.getElementById('inspiration-title').textContent = config.inspiration_title || defaultConfig.inspiration_title;
+            document.getElementById('form-title').textContent = config.form_title || defaultConfig.form_title;
+            document.getElementById('button-text').textContent = config.button_text || defaultConfig.button_text;
+
+            // Update colors
+            const backgroundColor = config.background_color || defaultConfig.background_color;
+            const surfaceColor = config.surface_color || defaultConfig.surface_color;
+            const textColor = config.text_color || defaultConfig.text_color;
+            const primaryActionColor = config.primary_action_color || defaultConfig.primary_action_color;
+            const secondaryActionColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+            document.body.style.background = `linear-gradient(135deg, ${backgroundColor} 0%, wheat 50%, ${secondaryActionColor} 100%)`;
+            
+            // Update text colors
+            document.getElementById('main-title').style.color = textColor;
+            document.getElementById('subtitle').style.color = textColor;
+            document.getElementById('inspiration-title').style.color = textColor;
+            document.getElementById('form-title').style.color = textColor;
+            
+            // Update button
+            document.getElementById('submit-btn').style.backgroundColor = primaryActionColor;
+
+            // Update font family
+            document.body.style.fontFamily = `${customFont}, ${baseFontStack}`;
+
+            // Update font sizes
+            document.getElementById('main-title').style.fontSize = `${baseSize * 3.125}px`;
+            document.getElementById('subtitle').style.fontSize = `${baseSize * 1.25}px`;
+            document.getElementById('inspiration-title').style.fontSize = `${baseSize * 1.875}px`;
+            document.getElementById('form-title').style.fontSize = `${baseSize * 1.875}px`;
+            document.getElementById('submit-btn').style.fontSize = `${baseSize * 1.25}px`;
+        }
+
+        // Element SDK initialization
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities: (config) => ({
+                    recolorables: [
+                        {
+                            get: () => config.background_color || defaultConfig.background_color,
+                            set: (value) => {
+                                config.background_color = value;
+                                window.elementSdk.setConfig({ background_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.surface_color || defaultConfig.surface_color,
+                            set: (value) => {
+                                config.surface_color = value;
+                                window.elementSdk.setConfig({ surface_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.text_color || defaultConfig.text_color,
+                            set: (value) => {
+                                config.text_color = value;
+                                window.elementSdk.setConfig({ text_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                            set: (value) => {
+                                config.primary_action_color = value;
+                                window.elementSdk.setConfig({ primary_action_color: value });
+                            }
+                        },
+                        {
+                            get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                            set: (value) => {
+                                config.secondary_action_color = value;
+                                window.elementSdk.setConfig({ secondary_action_color: value });
+                            }
+                        }
+                    ],
+                    borderables: [],
+                    fontEditable: {
+                        get: () => config.font_family || defaultConfig.font_family,
+                        set: (value) => {
+                            config.font_family = value;
+                            window.elementSdk.setConfig({ font_family: value });
+                        }
+                    },
+                    fontSizeable: {
+                        get: () => config.font_size || defaultConfig.font_size,
+                        set: (value) => {
+                            config.font_size = value;
+                            window.elementSdk.setConfig({ font_size: value });
+                        }
+                    }
+                }),
+                mapToEditPanelValues: (config) => new Map([
+                    ["main_title", config.main_title || defaultConfig.main_title],
+                    ["subtitle", config.subtitle || defaultConfig.subtitle],
+                    ["inspiration_title", config.inspiration_title || defaultConfig.inspiration_title],
+                    ["form_title", config.form_title || defaultConfig.form_title],
+                    ["button_text", config.button_text || defaultConfig.button_text]
+                ])
+            });
+        }
+
+        // Initialize app
+        initializeApp();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99f0d693c5e80db3',t:'MTc2MzIzMTYxOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
